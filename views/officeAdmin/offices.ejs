@@ -1,0 +1,27 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <div class="offices">
+            <% officeUsers.forEach(office => { %> 
+            <div class="offices__card">
+                <div class="offices__card--title">
+                    <p> <%= office.officeName %>  </p>
+                </div>
+                <ul class="offices__card--list">
+                    <li class="offices__card--list-item">Username:  <%= office.username %>  </li>
+                    <li class="offices__card--list-item">Email: <%= office.email %>  </li>
+                    <li class="offices__card--list-item">Phone: <%= office.phone %>  </li>
+                </ul>
+                <a href="/office-admin/offices/<%= office._id %> " class="offices__card--btn"> <span>View office Report</span> </a>
+            </div>
+            <% }); %> 
+        </div>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %>

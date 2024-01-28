@@ -1,0 +1,55 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <!-- <h1 style="font-size: 6rem; text-align:center; color: #43475F;">Under Construction</h1> -->
+
+        <form action="/admin/add-office" method="POST" class="addOffice">
+            <div class="addOffice__inputGroup">
+                <label for="name" class="addOffice__inputGroup--label">Office Name</label>
+                <input id="name" name="officeName" type="text" class="addOffice__inputGroup--input input-text" placeholder="Office Name" required>
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="address" class="addOffice__inputGroup--label">Office Address</label>
+                <input id="address" name="OfficeAddress" type="text" class="addOffice__inputGroup--input input-text" placeholder="Office Address (Optional)">
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="email" class="addOffice__inputGroup--label">Email Address</label>
+                <input id="email" name="email" type="email" class="addOffice__inputGroup--input input-text" placeholder="Email Address" required>
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="phone" class="addOffice__inputGroup--label">Phone Number</label>
+                <input id="phone" name="phone" type="text" class="addOffice__inputGroup--input input-text" placeholder="Phone Number" required>
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="username" class="addOffice__inputGroup--label">Username</label>
+                <input id="username" name="username" type="text" class="addOffice__inputGroup--input input-text" placeholder="Username" required>
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="password" class="addOffice__inputGroup--label">Password</label>
+                <input id="password" name="password" type="password" class="addOffice__inputGroup--input input-text" placeholder="Password" required>
+            </div>
+
+            <div class="addOffice__inputGroup">
+                <label for="c-password" class="addOffice__inputGroup--label">Confirm Password</label>
+                <input id="c-password" name="confirmPassword" type="password" class="addOffice__inputGroup--input input-text" placeholder="Confirm Password" required>
+            </div>
+
+            <div class="addOffice__buttonGroup">
+                <button class="addOffice__buttonGroup--btn submit-btn">Submit</button>
+                <button class="addOffice__buttonGroup--btn submit-btn" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %> 

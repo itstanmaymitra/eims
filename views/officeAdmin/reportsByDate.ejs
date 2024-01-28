@@ -1,0 +1,64 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <div class="officeAdmin-report">
+            <table class="officeAdmin-report__table">
+                <thead>
+                    <tr>
+                        <th>Office</th>
+                        <th>Time Slot</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Duration(Min)</th>
+                        <th>Suffered Consumers</th>
+                        <th>Interruption Area</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+
+                <% if (reports.length) { %>
+                    <tbody>
+                        <% reports.forEach(report => { %> 
+                        <tr>
+                            <th colspan="8"> <%= report._id.toUTCString().split('00:00:00')[0] %>  </th>
+                        </tr>
+
+                            <% report.reportsByDate.forEach(reportsByDate => { %> 
+                            <tr>
+                                <td> <%= reportsByDate.office.officeName %>  </td>
+                                <td> <%= reportsByDate.timeSlot === 'slot1' ? '9 AM to 9 PM' : '9 PM to 9 AM' %>  </td>
+                                <td> <%= reportsByDate.startTime %>  </td>
+                                <td> <%= reportsByDate.endTime %>  </td>
+                                <td> <%= reportsByDate.duration %>  </td>
+                                <td> <%= reportsByDate.suffered_consumers %>  </td>
+                                <td> <%= reportsByDate.interruption_area %>  </td>
+                                <td> <%= reportsByDate.reason %>  </td>
+                            </tr>
+                            <% }) %> 
+                        <% }) %>                     
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="8"><a href="/office-admin/generate-combined-report-by-date?date=<%= date %>" class="table-btn">Generate Report</a></td>
+                        </tr>
+                    </tfoot>
+                <% } else { %> 
+                    <tfoot>
+                        <tr>
+                            <td colspan="8"><p>No reports found</p></td>
+                        </tr>
+                    </tfoot>
+                <% } %> 
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<%- include('../includes/end.ejs') %>

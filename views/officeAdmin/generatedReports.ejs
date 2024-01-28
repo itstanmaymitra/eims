@@ -1,0 +1,24 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <div class="generatedReports">
+            <h3 class="generatedReports__title">Generated Reports</h3>
+
+            <ul class="generatedReports__list">
+                <% reports.forEach(report => { %>
+                    <li class="generatedReports__list--item">
+                        <span>Generated At: <%= new Date(report.createdAt).toLocaleString() %> </span>
+                        <a class="generatedReports__list--link" target="_blank" href="/office-admin/download-pdf/<%= report._id %>">Download PDF</a>
+                    </li>
+                <% }) %> 
+            </ul>
+        </div>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %>

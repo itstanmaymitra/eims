@@ -1,0 +1,290 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <div class="dashboard">
+            <div class="dashboard__header">
+                <h2 class="dashboard__header--title"><%= office.officeName %></h2>
+            </div>
+
+            <div class="dashboard-officeAdmin">
+                <div class="dashboard-officeAdmin__left">
+                    <div class="dashboard-officeAdmin__left-top">
+                        <div class="dashboard-officeAdmin__left-top--totalDuration">
+                            <p class="dashboard-officeAdmin__left-top--totalDuration-icon"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.07 1.01h-6v2h6v-2zm-4 13h2v-6h-2v6zm8.03-6.62l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.14 4.74 14.19 4 12.07 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.11-.74-4.06-1.97-5.61zm-7.03 12.62c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg></p>
+                            <p class="dashboard-officeAdmin__left-top--totalDuration-count"><%= totalDuration %></p>
+                            <p class="dashboard-officeAdmin__left-top--totalDuration-text">Last 30 Days Total Interruption Duration</p>
+                        </div>
+
+                        <div class="dashboard-officeAdmin__left-top--chart">
+                            <canvas id="officeWiseDuration"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-officeAdmin__left--durationChart">
+                        <canvas id="officeAdminDurationChart"></canvas>
+                        <p>Last 15 Days Interruption Duration(min)</p>
+                    </div>
+
+                    <div class="dashboard-officeAdmin__left--recentReports">
+                        <h3>Recent reports</h3>
+
+                        <table class="officeAdmin-report__table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Duration(Min)</th>
+                                    <th>Suffered Consumers</th>
+                                </tr>
+                            </thead>
+            
+                            <% if (recentReports.length) { %> 
+                                <tbody>
+                                    <% recentReports.forEach(report => { %>             
+                                        <tr>
+                                            <td> <%= report._id.toUTCString().split('00:00:00')[0] %>  </td>
+                                            <td> <%= report.duration %>  </td>
+                                            <td> <%= report.suffered_consumers %>  </td>
+                                        </tr>
+                                    <% }) %> 
+                                </tbody>
+            
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7"><a href="/office-admin/reports" class="table-btn">View Full Reports</a></td>
+                                    </tr>
+                                </tfoot>
+                            <% } else { %> 
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7"><p>No reports found</p></td>
+                                    </tr>
+                                </tfoot>
+                            <% } %> 
+                        </table>
+                    </div>
+                </div>
+
+                <div class="dashboard-officeAdmin__right">
+                    <div class="dashboard-officeAdmin__right-top">
+                        <div class="dashboard-officeAdmin__right-top--totalInterruptions">
+                            <p class="dashboard-officeAdmin__right-top--totalInterruptions-icon"><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17 10h-3.61l2.28 2.28zm0-8H7v1.61l6.13 6.13zm-13.59.86L2 4.27l5 5V13h3v9l3.58-6.15L17.73 20l1.41-1.41z"/></svg></p>
+                            <p class="dashboard-officeAdmin__right-top--totalInterruptions-count"><%= totalInterruptions %> Times</p>
+                            <p class="dashboard-officeAdmin__right-top--totalInterruptions-text">Last 30 Days Number of Interruptions</p>
+                        </div>
+
+                        <div class="dashboard-officeAdmin__right-top--chart">
+                            <canvas id="officeWiseSufferedConsumers"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-officeAdmin__right--consumerChart">
+                        <canvas id="officeAdminConsumerChart"></canvas>
+                        <p>Last 15 Days Suffered Consumers for Interruptions</p>
+                    </div>
+
+                    <div class="dashboard-officeAdmin__right--generatedReports">
+                        <div class="generatedReports">
+                            <% if (generatedReports.length) { %> 
+                            <h3 class="generatedReports__title">Generated Reports</h3>
+                            <% } %> 
+                
+                            <% if (generatedReports.length) { %> 
+                            <ul class="generatedReports__list">
+                                <% generatedReports.forEach(report => { %>
+                                    <li class="generatedReports__list--item">
+                                        <span>Generated At: <%= new Date(report.createdAt).toLocaleString() %> </span>
+                                        <a class="generatedReports__list--link" target="_blank" href="/office-admin/download-pdf/<%= report._id %>">Download PDF</a>
+                                    </li>
+                                <% }) %> 
+                            </ul>
+                            <% } else { %> 
+                                <p class="generatedReports__notFound">Could not Found any Generated Reports</p>
+                            <% } %> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var durationChart = document.getElementById('officeAdminDurationChart').getContext('2d');
+    var consumerChart = document.getElementById('officeAdminConsumerChart').getContext('2d');
+    var officeWiseDurationChart = document.getElementById('officeWiseDuration').getContext('2d');
+    var officeWiseSufferedConsumers = document.getElementById('officeWiseSufferedConsumers').getContext('2d');
+
+    // colors 
+    const bgColors = [
+        'rgba(28, 29, 50, 0.7)',
+        'rgba(90, 55, 88, 0.7)',
+        'rgba(161, 82, 106, 0.7)',
+        'rgba(221, 122, 104, 0.7)',
+        'rgba(253, 180, 96, 0.7)',
+        'rgba(249, 248, 113, 0.7)',
+        'rgba(60, 51, 29, 0.7)',
+        'rgba(0, 63, 74, 0.7)',
+        'rgba(0, 125, 89, 0.7)',
+        'rgba(59, 141, 139, 0.7)',
+        'rgba(79, 52, 94, 0.7)',
+        'rgba(161, 82, 106, 0.7)',
+        'rgba(221, 122, 104, 0.7)',
+        'rgba(253, 180, 96, 0.7)',
+        'rgba(249, 248, 113, 0.7)',         
+    ]
+
+    const borderColors = [
+        '#1c1d32',
+        '#5a3758',
+        '#a1526a',
+        '#dd7a68',
+        '#fdb460',
+        '#f9f871',
+        '#3c331d',
+        '#003f4a',
+        '#007d59',
+        '#3b8d8b',
+        '#4f345e',
+        '#a1526a',
+        '#dd7a68',
+        '#fdb460',
+        '#f9f871'
+    ]
+
+    let dData = '<%- JSON.stringify(durationByDate) %>';
+    dData = JSON.parse(dData);
+
+    let cData = '<%- JSON.stringify(sufferedConsumersByDate) %>'
+    cData = JSON.parse(cData);
+
+    let officeWiseTotalReports = '<%- JSON.stringify(officeWiseTotalReports) %>';
+    officeWiseTotalReports = JSON.parse(officeWiseTotalReports);
+
+    const durationData = dData.map(d => { return d.duration });
+    const durationDateData = dData.map(d => { return d._id.split('T')[0] });
+
+    const consumerData = cData.map(d => { return d.suffered_consumers });
+    const consumerDateData = cData.map(d => { return d._id.split('T')[0] });
+
+    const officeWiseOfficeData = officeWiseTotalReports.map(d => {return d._id.officeName});
+    const officeWiseDurationData = officeWiseTotalReports.map(d => {return d.duration});
+
+    const officeWiseConsumerData = officeWiseTotalReports.map(d => {return d.suffered_consumers});
+
+    var newDurationChart = new Chart(durationChart, {
+        type: 'bar',
+        data: {
+            labels: durationDateData,
+            datasets: [{
+                label: 'Duration(min)',
+                data: durationData,
+                backgroundColor: [
+                    'rgb(67, 71, 95)',
+                    
+                ],
+                borderColor: [
+                    'rgb(28, 29, 50)',
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true
+        }
+    });
+
+    var newConsumerChart = new Chart(consumerChart, {
+        type: 'bar',
+        data: {
+            labels: consumerDateData,
+            datasets: [{
+                label: 'Suffered Consumers',
+                data: consumerData,
+                backgroundColor: [
+                    'rgb(67, 71, 95)',
+                    
+                ],
+                borderColor: [
+                    'rgb(28, 29, 50)',
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true
+        }
+    });
+
+    var newOfficeWiseDurationChart = new Chart(officeWiseDurationChart, {
+        type: 'doughnut',
+        data: {
+        labels: officeWiseOfficeData,
+            datasets: [{
+                data: officeWiseDurationData,
+                backgroundColor: bgColors,
+                borderColor: borderColors,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    text: "Office Wise Total Durations",
+                    display: true
+                }
+            },
+            layout: {
+                padding: 15
+            },
+            responsive: true
+        }
+    });
+
+    var newOfficeWiseSufferedConsumers = new Chart(officeWiseSufferedConsumers, {
+        type: 'doughnut',
+        data: {
+        labels: officeWiseOfficeData,
+            datasets: [{
+                data: officeWiseConsumerData,
+                backgroundColor: bgColors,
+                borderColor: borderColors,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    text: "Office Wise Total Sufferd Consumers",
+                    display: true
+                }
+            },
+            layout: {
+                padding: 15
+            },
+            responsive: true
+        }
+    });
+</script>
+
+<%- include('../includes/end.ejs') %>

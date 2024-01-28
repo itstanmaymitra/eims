@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <div class="generatedReports">
+            <% if (reports.length) { %> 
+            <h3 class="generatedReports__title">Generated Reports</h3>
+            <% } %> 
+
+            <% if (reports.length) { %> 
+            <ul class="generatedReports__list">
+                <% reports.forEach(report => { %>
+                    <li class="generatedReports__list--item">
+                        <span>Generated At: <%= new Date(report.createdAt).toLocaleString() %> </span>
+                        <a class="generatedReports__list--link" target="_blank" href="/office-user/download-pdf/<%= report._id %>">Download PDF</a>
+                    </li>
+                <% }) %> 
+            </ul>
+            <% } else { %> 
+                <p class="generatedReports__notFound">Could not Found any Generated Reports</p>
+            <% } %> 
+        </div>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %>

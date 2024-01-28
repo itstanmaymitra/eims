@@ -1,0 +1,39 @@
+{
+	"name": "eims",
+	"version": "1.0.0",
+	"description": "EIMS - Electricity Interruption Monitoring System",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node app.js",
+		"server": "concurrently --kill-others \"sass public/sass/main.scss public/css/main.css -w\" \"nodemon app.js\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/itstanmaymitra/eims.git"
+	},
+	"author": "itsTanmayMitra",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/itstanmaymitra/eims/issues"
+	},
+	"homepage": "https://github.com/itstanmaymitra/eims#readme",
+	"devDependencies": {
+		"concurrently": "^8.2.2",
+		"nodemon": "^3.0.3",
+		"sass": "^1.70.0"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"chart.js": "^4.4.1",
+		"connect-flash": "^0.1.1",
+		"connect-mongodb-session": "^5.0.0",
+		"dotenv": "^16.4.1",
+		"ejs": "^3.1.9",
+		"express": "^4.18.2",
+		"express-session": "^1.17.3",
+		"helmet": "^7.1.0",
+		"mongoose": "^8.1.1",
+		"pdfmake": "^0.2.9"
+	}
+}

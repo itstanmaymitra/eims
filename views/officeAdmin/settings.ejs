@@ -1,0 +1,67 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <form action="/office-admin/edit-office-details" method="POST" class="editOffice">
+            <h2 class="editOffice__title">Edit Office Details</h2>
+
+            <div class="editOffice__inputGroup">
+                <label for="name" class="editOffice__inputGroup--label">Office Name</label>
+                <input id="name" name="officeName" type="text" class="editOffice__inputGroup--input input-text" placeholder="Office Name" value="<%= user.officeName %>" required>
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="address" class="editOffice__inputGroup--label">Office Address</label>
+                <input id="address" name="officeAddress" type="text" class="editOffice__inputGroup--input input-text" placeholder="Office Address" value="<%= user.officeAddress %>">
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="email" class="editOffice__inputGroup--label">Email Address</label>
+                <input id="email" name="email" type="email" class="editOffice__inputGroup--input input-text" disabled placeholder="Email Address" value="<%= user.email %>" required>
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="phone" class="editOffice__inputGroup--label">Phone Number</label>
+                <input id="phone" name="phone" type="text" class="editOffice__inputGroup--input input-text" placeholder="Phone Number" value="<%= user.phone %>" required>
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="username" class="editOffice__inputGroup--label">Username</label>
+                <input id="username" name="username" type="text" class="editOffice__inputGroup--input input-text" disabled placeholder="Username" value="<%= user.username %>" required>
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="password" class="editOffice__inputGroup--label"> Current Password</label>
+                <input id="password" name="password" type="password" class="editOffice__inputGroup--input input-text" placeholder="Current Password" required>
+            </div>
+
+            <div class="editOffice__buttonGroup">
+                <button class="editOffice__buttonGroup--btn submit-btn">Update</button>
+            </div>
+        </form>
+
+        <form action="/office-admin/change-password" method="POST" class="editOffice">
+            <h2 class="editOffice__title">Change Password</h2>
+
+            <div class="editOffice__inputGroup">
+                <label for="password" class="editOffice__inputGroup--label">Current Password</label>
+                <input id="password" name="password" type="password" class="editOffice__inputGroup--input input-text" placeholder="Current Password">
+            </div>
+
+            <div class="editOffice__inputGroup">
+                <label for="new-password" class="editOffice__inputGroup--label">New Password</label>
+                <input id="new-password" name="newPassword" type="password" class="editOffice__inputGroup--input input-text" placeholder="New Password">
+            </div>
+
+            <div class="editOffice__buttonGroup">
+                <button class="editOffice__buttonGroup--btn submit-btn">Update</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %>

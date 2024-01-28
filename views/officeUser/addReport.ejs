@@ -1,0 +1,71 @@
+<%- include('../includes/head.ejs') %> 
+
+<section class="container">
+    <%- include('../includes/topbar.ejs') %> 
+
+    <%- include('../includes/sidebar.ejs') %> 
+
+    <div class="content">
+        <form action="/office-user/add-report" method="POST" class="addReport">
+            <h2 class="addReport__title">Add Electricity Interruption Report</h2>
+
+            <div class="addReport__inputGroup">
+                <label for="date" class="addReport__inputGroup--label">Date</label>
+                <input required id="date" name="date" type="date" class="addReport__inputGroup--input input-text" placeholder="Office Name">
+            </div>
+
+            <div class="addReport__radioInput">
+                <p class="addReport__inputGroup--label">Time Slot</p>
+                <div class="addReport__radioGroup">
+                    <input id="timeSlot1" name="timeSlot" value="slot1" type="radio" class="addReport__radioGroup--radio-input">
+                    <label for="timeSlot1" class="addReport__radioGroup--label">
+                        <span class="addReport__radioGroup--radio-btn"></span>
+                        <span> 9 AM to 9 PM </span>
+                    </label>
+                </div>
+                <div class="addReport__radioGroup">
+                    <input id="timeSlot2" name="timeSlot" value="slot2" type="radio" class="addReport__radioGroup--radio-input">
+                    <label for="timeSlot2" class="addReport__radioGroup--label">
+                        <span class="addReport__radioGroup--radio-btn"></span>
+                        <span> 9 PM to 9 AM </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="addReport__multi-input">
+                <div class="addReport__inputGroup">
+                    <label for="startTime" class="addReport__inputGroup--label">Start Time</label>
+                    <input required id="startTime" name="startTime" type="time" value="00:00" class="addReport__inputGroup--input-half input-text" placeholder="Start Time">
+                </div>
+
+                <div class="addReport__inputGroup">
+                    <label for="endTime" class="addReport__inputGroup--label">End Time</label>
+                    <input required id="endTime" name="endTime" type="time" value="00:00" class="addReport__inputGroup--input-half input-text" placeholder="End Time">
+                </div>
+            </div>
+            
+
+            <div class="addReport__inputGroup">
+                <label for="suffered_consumers" class="addReport__inputGroup--label">Number of Suffered Consumers</label>
+                <input required id="suffered_consumers" name="suffered_consumers" type="number" class="addReport__inputGroup--input input-text" placeholder="Number of Suffered Consumers">
+            </div>
+
+            <div class="addReport__inputGroup">
+                <label for="interruption_area" class="addReport__inputGroup--label">Area of Interruption</label>
+                <input required id="interruption_area" name="interruption_area" type="text" class="addReport__inputGroup--input input-text" placeholder="Area of Interruption">
+            </div>
+
+            <div class="addReport__inputGroup">
+                <label for="reason" class="addReport__inputGroup--label">Reason</label>
+                <textarea required name="reason" id="reason" class="addReport__inputGroup--input input-text input-text-area" cols="30" rows="10" placeholder="Reason of Inturruption"></textarea>
+            </div>
+
+            <div class="addReport__buttonGroup">
+                <button class="addReport__buttonGroup--btn submit-btn" type="submit">Submit</button>
+                <button class="addReport__buttonGroup--btn submit-btn" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<%- include('../includes/end.ejs') %>

@@ -1,0 +1,1482 @@
+// *************************************************** Fonts
+@font-face {
+    font-family: 'AdorshoLipi';
+    src: url('../fonts/AdorshoLipi.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+}
+
+// *************************************************** Variables
+$color-primary-dark: #1C1D32;
+$color-primary-light: #43475F;
+
+$color-grey-light: #D6D6D6;
+$color-grey: #959595;
+
+$color-body-bg: #fafafa;
+
+$color-white: #fff;
+
+$color-error-text: #721c24;
+$color-error-bg: #f8d7da;
+$color-error-border: #f5c6cb;
+
+$color-success-text: #004085;
+$color-success-bg: #CCE5FF;
+$color-success-border: #B8DAFF;
+
+
+// *************************************************** Animation Keyframes
+
+
+
+// *************************************************** Base
+
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-family: "Roboto", "AdorshoLipi", sans-serif;
+    font-size: 62.5%;
+
+    @media only screen and (max-width: 1550px) {
+        font-size: 60%;
+    }
+
+    @media only screen and (max-width: 1500px) {
+        font-size: 55%;
+    }
+
+    @media only screen and (max-width: 1350px) {
+        font-size: 50%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    background-color: $color-body-bg;
+}
+
+// *************************************************** Components
+
+// Top Navigation
+.navigation {
+    background-color: $color-primary-dark;
+    height: 6rem;
+    padding: 0 6.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    &__title {
+        font-size: 2rem;
+        font-family: 'Sriracha', cursive;
+        letter-spacing: 5px;
+        color: $color-grey-light;
+        position: relative;
+
+        & h1 {
+            & span {
+                font-family: 'Roboto', 'sans-serif';
+                font-size: 1rem;
+                letter-spacing: 0;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                color: $color-primary-light;
+            }
+        }
+    }
+
+    &__menu {
+        list-style: none;
+        display: flex;
+
+        &--item {
+            font-size: 1.6rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 2px;
+            border-bottom: 2px solid transparent;
+            transition: all .2s ease-in-out;
+
+            &:not(:last-child) {
+                margin-right: 3rem;
+            }
+
+            &:hover {
+                border-bottom: 2px solid $color-grey-light;
+            }
+        }
+
+        &--link,
+        &--link:active,
+        &--link:visited {
+            color: $color-grey-light;
+            text-decoration: none;
+        }
+    }
+}
+
+// Page Layouts
+.container {
+    width: 100%;
+    height: 100vh;
+
+    display: grid;
+    grid-template-rows: 6rem 1fr;
+    grid-template-columns: 15rem 1fr;
+
+    @media only screen and (max-width: 1225px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.topbar {
+    grid-row: 1 / 1;
+    grid-column: 2 / -1;
+
+    background-color: $color-grey-light;
+    height: 6rem;
+    padding: 0 6.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    z-index: 100;
+
+    @media only screen and (max-width: 1225px) {
+        grid-column: 1 / -1;
+    }
+    
+
+    &__title {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: $color-primary-light;
+
+        display: flex;
+        align-items: center;
+
+        &--btn {
+            margin-right: 2rem;
+            display: none;
+            cursor: pointer;
+
+            @media only screen and (max-width: 1225px) {
+                display: block;
+            }
+
+            & svg {
+                height: 5rem;
+                fill: $color-primary-dark;
+            }
+        }
+    }
+
+    &__button {
+        border: 2px solid $color-primary-dark;
+        border-radius: .5rem;
+        background-color: transparent;
+        color: $color-primary-dark;
+        padding: .5rem 1.8rem;
+        font-size: 1.7rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all .3s ease-out;
+
+        &:hover {
+            background-color: $color-primary-dark;
+            color: $color-grey-light;
+        }
+
+        &:hover > &--icon > svg {
+            fill: $color-grey-light;
+        }
+
+
+        &--icon {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+
+            &>svg {
+                width: 3rem;
+                height: 3rem;
+                fill: $color-primary-dark;
+                transition: all .3s ease-out;
+            }
+        }
+    }
+}
+
+.sidebar {
+    grid-row: 1 / -1;
+    grid-column: 1 / 1;
+    background-color: $color-primary-dark;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    overflow-y: scroll;
+    transition: width .2s;
+
+     /* Hide scrollbar for Chrome, Safari and Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+  
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    @media only screen and (max-width: 1225px) {
+        width: 0;
+        height: 100vh;
+        z-index: 102;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+
+    &__show {
+        width: 15rem;
+    }
+
+
+    &__logoTitle {
+        font-size: 3rem;
+        font-family: 'Sriracha', cursive;
+        letter-spacing: 5px;
+        color: $color-grey-light;
+        position: relative;
+
+        & h1 {
+            & span {
+                font-family: 'Roboto', 'sans-serif';
+                font-size: 1rem;
+                letter-spacing: 0;
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                color: $color-primary-light;
+            }
+        }
+    }
+
+    &__menu {
+        list-style: none;
+
+        &--list {
+            width: 15rem;
+        }
+
+        &--link {
+            display: block;
+            padding: 1.5rem;
+            margin-bottom: .5rem;
+            text-align: center;
+            color: $color-grey-light;
+            font-size: 1.4rem;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+
+
+            &::after {
+                content: "";
+                width: .5rem;
+                height: 100%;
+                border-radius: 0 5rem 5rem 0;
+                position: absolute;
+                background-color: $color-primary-light;
+                left: 0;
+                top: 0;
+                z-index: -1;
+                transition: width .2s ease-out;
+            }
+
+            &:hover::after {
+                border-radius: 0;
+                width: 100%;
+                background-color: $color-primary-light;
+            }
+            
+            & span {
+                display: block;
+
+                & svg {
+                    fill: $color-grey-light;
+                    height: 4.2rem;
+                    width: 4.2rem;
+                }
+            }
+        }
+
+        &--link-active {
+            &::after {
+                content: "";
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+                position: absolute;
+                background-color: rgba($color-primary-light, .7);
+                left: 0;
+                top: 0;
+                z-index: -1;
+                transition: width .2s ease-out;
+            }
+        }
+    }
+}
+
+.content {
+    grid-row: 2 / -1;
+    grid-column: 2 / -1;
+    background-color: $color-body-bg;
+
+    @media only screen and (max-width: 1225px) {
+        grid-column: 1 / -1;
+    }
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.body-wrapper {
+    background-color: rgba($color-primary-dark, .7);
+    height: 100vh;
+    width: 100vw;
+    z-index: 101;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: all .3s;
+}
+
+// Form elements
+.input-text {
+    display: block;
+    padding: 1.9rem;
+    border: none;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid transparent;
+    transition: all .3s ease-in-out;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 1rem;
+    font-size: 2rem;
+    color: $color-primary-light;
+
+    &::placeholder {
+        color: $color-grey;
+        letter-spacing: 1px;
+    }
+
+    &:focus {
+        outline: none;
+        border-bottom: 3px solid $color-primary-light;
+    }
+}
+
+.input-text-area {
+    resize: none;
+    font-family: 'Roboto', 'sans-serif';
+}
+
+.submit-btn {
+    display: block;
+    background-color: $color-primary-light;
+    color: $color-grey-light;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 1.9rem;
+    margin-bottom: 2rem;
+    border: none;
+    border-radius: 1rem;
+    font-size: 2rem;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+// Add Office + Edit Office Form
+.addOffice,
+.editOffice {
+    margin: 5rem 0 0 5rem;
+    width: 80rem;
+
+    &__title {
+        font-size: 2.5rem;
+        color: $color-primary-light;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 3rem;
+    }
+
+    &__inputGroup {
+        &--label {
+            display: block;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            color: $color-primary-light;
+            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+        }
+
+        &--input {
+            width: 100%;
+            border: 1px solid $color-grey-light;
+        } 
+    }
+
+    &__buttonGroup {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5rem;
+
+        &--btn {
+            width: 35rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+            &:hover {
+                background-color: $color-primary-dark;
+            }
+        }
+    }
+}
+
+// Error Box 
+.error {
+    background-color: $color-error-bg;
+    width: 55rem;
+    border: 2px solid $color-error-border;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    position: absolute;
+    left: 50%;
+    bottom: 3.5rem;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: $color-error-text;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+
+    &__message {
+        margin-right: 2rem;
+    }
+
+    &__close-btn {
+        background-color: $color-error-border;
+        border: none;
+        cursor: pointer;
+
+        & svg {
+            fill: $color-error-text;
+            height: 4.5rem;
+            width: 4.5rem;
+        }
+    }
+}
+
+// Success Box 
+.success {
+    background-color: $color-success-bg;
+    width: 55rem;
+    border: 2px solid $color-success-border;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    position: absolute;
+    left: 50%;
+    bottom: 3.5rem;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: $color-success-text;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+
+    &__message {
+        margin-right: 2rem;
+    }
+
+    &__close-btn {
+        background-color: $color-success-border;
+        border: none;
+        cursor: pointer;
+
+        & svg {
+            fill: $color-success-text;
+            height: 4.5rem;
+            width: 4.5rem;
+        }
+    }
+}
+
+// Reports Table
+table {
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: 6px;
+    background-color: $color-white;
+    overflow: hidden;
+    width: 90%;
+    margin: 5rem auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); 
+    padding-bottom: 1rem;
+    background-color: $color-grey-light;
+
+    font-size: 1.5rem;
+
+    & thead {
+        & tr {
+            height: 6rem;
+            background-color: $color-primary-dark;
+
+            & th {
+                text-align: left;
+                padding: 0 1rem;
+                color: $color-grey-light;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    & tbody {
+        background-color: $color-white;
+
+        & tr {
+            height: 5rem;
+
+            & th {
+                background-color: $color-grey-light;
+                padding: 2rem 0;
+                color: $color-primary-dark;
+                font-size: 1.6rem;
+                letter-spacing: 1.5px;
+
+                & a, a:active {
+                    color: $color-primary-dark;
+                    text-decoration: none;
+                    padding: 1rem 1.5rem;
+                    border-radius: 5px;
+                    transition: all .2s;
+
+                    &:hover {
+                        background-color: $color-primary-dark;
+                        color: $color-grey-light;
+                    }
+                }
+            }
+
+            & td {
+                text-align: left;
+                padding: 0 1rem;
+                border: 2px solid $color-grey-light;
+                color: $color-primary-light;
+
+                &:last-child {
+                    width: 25rem;
+                }
+            }  
+        }
+    }
+
+    & tfoot {
+        & tr {
+            height: 9rem;
+
+            & td {
+                text-align: center;
+                padding: 0 1rem;
+
+                & p {
+                    font-size: 1.7rem;
+                    color: $color-primary-dark;
+                    letter-spacing: 1px;
+                }
+
+                .table-btn,
+                .table-btn:active {
+                    color: $color-white;
+                    letter-spacing: 1px;
+                    background-color: $color-primary-dark;
+                    padding: 1rem 3rem;
+                    text-transform: uppercase;
+                    border-radius: 5px;
+                    text-decoration: none;
+                    border: 2px solid $color-primary-dark;
+                    transition: all .2s;
+
+                    &:hover {
+                        color: $color-primary-dark;
+                        background-color: $color-white;
+                        border: 2px solid $color-primary-dark;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Office Cards
+.offices {
+    padding: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 40rem);
+    gap: 3rem;
+
+    &__card {
+        background-color: $color-white;
+        width: 40rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        border-radius: 1rem;
+        border-top: 6px solid $color-primary-light;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &--title {
+            font-size: 2rem;
+            color: $color-primary-light;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 2rem;
+            border-bottom: 2px solid $color-grey-light;
+        }
+
+        &--btn {
+            display: block;
+            text-decoration: none;
+            width: 100%;
+            background-color: $color-primary-light;
+            border-radius: 0 0 1rem 1rem;
+            height: 4.5rem;
+            font-size: 1.6rem;
+            color: $color-grey-light;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all .3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                background-color: $color-primary-dark;
+            }
+        }
+
+        &--list {
+            padding: 1rem 2rem 3rem 2rem;
+            list-style: none;
+            color: $color-primary-light;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+    }
+}
+
+// Page Title 
+.pageTitle {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 2.5rem;
+    color: $color-primary-light;
+    letter-spacing: 2px;
+}
+
+// pagination 
+.pagination {
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 5rem;
+
+    &__link,
+    &__link:active {
+        font-size: 1.7rem;
+        color: $color-grey-light;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        margin: 1rem;
+        background-color: $color-primary-dark;
+        border: 2px solid $color-primary-dark;
+        border-radius: 2px;
+        transition: all .2s;
+    }
+
+    &__link--active {
+        background-color: $color-grey-light;
+        border: 2px solid $color-primary-dark;
+        color: $color-primary-dark;
+    }
+
+    &__link:hover {
+        background-color: $color-grey-light;
+        border: 2px solid $color-primary-dark;
+        color: $color-primary-dark;
+    }
+}
+
+
+// filter
+.filter {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 5rem auto;
+
+
+    &__btn {
+        & button {
+            padding: 1rem 1.5rem;
+            border: 2px solid $color-primary-dark;
+            border-radius: 5px;
+            
+            color: $color-primary-dark;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all .2s;
+
+            &:hover {
+                background-color: $color-primary-dark;
+                color: $color-grey-light;
+            }
+        }
+    }
+
+    &__form {
+        & form input {
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            margin-bottom: 0;
+            border-radius: 5px;
+        }
+
+        & form button {
+            padding: 1rem 1.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: $color-primary-dark;
+            }
+        }
+
+        &--single {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        &--range {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+
+// *************************************************** Pages
+
+// Home
+.home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+
+    &__content {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    &__logoTitle {
+        font-size: 5rem;
+        font-family: 'Sriracha', cursive;
+        letter-spacing: 5px;
+        color: $color-primary-dark;
+        display: inline-block;
+        text-align: center;
+
+        &--abbr {
+            font-size: 2.5rem;
+            text-align: center;
+            letter-spacing: 1px;
+            color: $color-primary-dark;
+            margin-bottom: 5rem;
+        }
+    }
+
+    &__developer-credit {
+        font-size: 1.2rem;
+        text-align: center;
+        letter-spacing: 1px;
+        color: $color-primary-light;
+
+        & a, a:active {
+            color: $color-primary-dark;
+        }
+    }
+
+}
+
+
+// Login Page
+.login {
+    height: calc(100vh - 6rem);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__box {
+        background-color: $color-grey-light;
+        margin-top: -10rem;
+        height: 45rem;
+        width: 60rem;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23);
+        border-radius: 1rem;
+        position: relative;
+
+        &--icon {
+            height: 16rem;
+            width: 16rem;
+            border-radius: 50%;
+            position: absolute;
+            top: -8rem;
+            left: 50%;
+            background-color: $color-primary-light;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & span>svg {
+                fill: $color-grey-light;
+                height: 9.6rem;
+                width: 9.6rem;
+            }
+        }
+
+        &--form {
+            margin-top: 11.5rem;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        &--input {
+            width: 50rem;
+        }
+
+        &--button {
+            width: 50rem;
+        }
+
+        &--link {
+            display: block;
+            text-align: center;
+            font-size: 1.6rem;
+            color: $color-primary-light;
+        }
+    }
+}
+
+// Office User - Dashboard
+.dashboard {
+    padding: 3rem;
+    color: $color-primary-dark;
+    letter-spacing: 1px;
+
+
+    &__header {
+        &--title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &-officeUser {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+
+        &__left {
+            grid-column: 1 / 2;
+            display: grid;
+            grid-template-rows: .4fr auto 1fr;
+            gap: 4rem;
+
+            &--totalDuration {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                padding: 2rem;
+
+                &-icon {
+                    & svg {
+                        height: 5rem;
+                        fill: $color-primary-dark;
+                    }
+                }
+
+                &-count {
+                    font-size: 2rem;
+                    font-weight: 600;
+                    color: $color-primary-dark;
+                    text-align: center;
+                }
+
+                &-text {
+                    font-size: 1.5rem;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+            }
+
+            &--durationChart {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                padding-top: 1.5rem;
+
+                & p {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    padding: 2rem 0;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+
+            }
+
+            &--recentReports {
+                & h3 {
+                    font-size: 3rem;
+                    padding: 2rem 0;
+                    text-align: center;
+                }
+
+                & table {
+                    margin: 0 auto;
+                    margin-bottom: 2rem;
+                    width: 95%;
+                }
+
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+        }
+    
+        &__right {
+            grid-column: 2 / 3;
+            display: grid;
+            grid-template-rows: .4fr auto 1fr;
+            gap: 4rem;
+
+            &--consumerChart {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                padding-top: 1.5rem;
+
+                & p {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    padding: 2rem 0;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+            }
+
+            &--totalInterruptions {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                padding: 2rem;
+
+                &-icon {
+                    & svg {
+                        height: 5rem;
+                        fill: $color-primary-dark;
+                    }
+                }
+
+                &-count {
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                    color: $color-primary-dark;
+                    text-align: center;
+                }
+
+                &-text {
+                    font-size: 1.5rem;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+            }
+
+            &--generatedReports {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+                & .generatedReports {
+                    &__title {
+                        font-size: 3rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Office Admin - Dashboard
+.dashboard {
+    &-officeAdmin {
+        display: grid;
+        grid-template-rows: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+
+        &__left {
+            grid-column: 1 / 2;
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+            gap: 4rem;
+
+            &-top {
+                display: grid;
+                grid-template-columns: minmax(30rem, 1fr) 30rem;
+                grid-template-rows: 30rem;
+                gap: 4rem;
+
+                @media only screen and (max-width: 1150px) {
+                    grid-template-columns: 1fr;
+                }
+                
+                &--totalDuration {
+                    background-color: $color-white;
+                    border-bottom: 4px solid $color-primary-dark;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding: 2rem;
+    
+                    &-icon {
+                        & svg {
+                            height: 5rem;
+                            fill: $color-primary-dark;
+                        }
+                    }
+    
+                    &-count {
+                        font-size: 3rem;
+                        font-weight: 600;
+                        color: $color-primary-dark;
+                        text-align: center;
+                    }
+    
+                    &-text {
+                        font-size: 1.5rem;
+                        text-align: center;
+                        color: $color-primary-light;
+                    }
+                }
+
+                &--chart {
+                    background-color: $color-white;
+                    border-bottom: 4px solid $color-primary-dark;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                }
+            }
+
+            &--durationChart {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                padding-top: 1.5rem;
+
+                & p {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    padding: 2rem 0;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+            }
+
+            &--recentReports {
+                & h3 {
+                    font-size: 3rem;
+                    padding: 2rem 0;
+                    text-align: center;
+                }
+
+                & table {
+                    margin: 0 auto;
+                    margin-bottom: 2rem;
+                    width: 95%;
+                }
+
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+        }
+
+        &__right {
+            grid-column: 2 / 3;
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+            gap: 4rem;
+
+            &-top {
+                display: grid;
+                grid-template-columns: minmax(30rem, 1fr) 30rem;
+                grid-template-rows: 30rem;
+                gap: 4rem;
+
+                @media only screen and (max-width: 1150px) {
+                    grid-template-columns: 1fr;
+                }
+                
+                &--totalInterruptions {
+                    background-color: $color-white;
+                    border-bottom: 4px solid $color-primary-dark;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding: 2rem;
+    
+                    &-icon {
+                        & svg {
+                            height: 5rem;
+                            fill: $color-primary-dark;
+                        }
+                    }
+    
+                    &-count {
+                        font-size: 3rem;
+                        font-weight: 600;
+                        color: $color-primary-dark;
+                        text-align: center;
+                    }
+    
+                    &-text {
+                        font-size: 1.5rem;
+                        text-align: center;
+                        color: $color-primary-light;
+                    }
+                }
+
+                &--chart {
+                    background-color: $color-white;
+                    border-bottom: 4px solid $color-primary-dark;
+                    border-radius: 5px;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                }
+            }
+
+            &--consumerChart {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+                padding-top: 1.5rem;
+
+                & p {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    padding: 2rem 0;
+                    text-align: center;
+                    color: $color-primary-light;
+                }
+            }
+
+            &--generatedReports {
+                background-color: $color-white;
+                border-bottom: 4px solid $color-primary-dark;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+                & .generatedReports {
+                    &__title {
+                        font-size: 3rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Office User - Add report
+.addReport {
+    margin: 5rem 0 0 5rem;
+    width: 80rem;
+
+    &__title {
+        font-size: 2.5rem;
+        color: $color-primary-light;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 3rem;
+    }
+
+    &__multi-input {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__inputGroup {
+        &--label {
+            display: block;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            color: $color-primary-light;
+            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+        }
+
+        &--input {
+            width: 100%;
+            border: 1px solid $color-grey-light;
+        } 
+
+        &--input-half {
+            width: 35rem;
+            border: 1px solid $color-grey-light;
+        }
+    }
+
+    &__radioInput {
+        margin-bottom: 2rem;
+    }
+
+    &__radioGroup {
+        display: inline-block;
+        margin-right: 1rem;
+        padding: .5rem;
+
+        &--label {
+            font-size: 1.6rem;
+            cursor: pointer;
+            display: inline-block;
+            color: $color-primary-light;
+            padding: 1rem 1rem 1rem 4.5rem;
+            border: 3px solid $color-primary-light;
+            border-radius: 50rem;
+            position: relative;
+            display: flex;
+        }
+
+        &--radio-input {
+            display: none;
+        }
+
+        &--radio-btn {
+            height: 2.6rem;
+            width: 2.6rem;
+            border: 5px solid $color-primary-light;
+            border-radius: 50%;
+            display: inline-block;
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            
+
+            &::after {
+                content: "";
+                height: 1rem;
+                width: 1rem;
+                display: block;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: $color-primary-dark;
+                opacity: 0;
+                transition: all .3s;
+            }
+        }
+
+        &--radio-input:checked ~ &--label &--radio-btn::after {
+            opacity: 1;
+            background-color: $color-grey-light;
+        }
+
+        &--radio-input:checked ~ &--label &--radio-btn {
+            border-color: $color-grey-light;
+        }
+
+        &--radio-input:checked ~ &--label {
+            background-color: $color-primary-light;
+            color: $color-grey-light;
+            border-color: $color-primary-dark;
+        }
+    }
+
+    &__buttonGroup {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5rem;
+        margin-bottom: 3rem; 
+
+        &--btn {
+            width: 35rem;
+                       
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+            &:hover {
+                background-color: $color-primary-dark;
+            }
+        }
+    }
+}
+
+// Office Admin - Reports
+.officeAdmin-report__table {
+
+    &--td-bold {
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+
+    & thead {
+        & tr {
+            & th {
+                text-align: center;
+            }
+        }
+    }
+
+    & tbody {
+        & tr {
+
+            & td {
+                text-align: center;
+                &:last-child {
+                    width: auto;
+                }
+            }
+        }
+    }
+}
+
+// Office User - Generated Reports
+.generatedReports {
+    &__title {
+        font-size: 3.5rem;
+        letter-spacing: 1.5px;
+        color: $color-primary-dark;
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    &__notFound {
+        font-size: 3.5rem;
+        color: $color-primary-light;
+        text-align: center;
+        padding: 3rem 0;
+    }
+
+    &__list {
+        margin: 2rem 5rem;
+        list-style: none;
+        font-size: 1.6rem;
+    
+        &--item {
+            background-color: $color-primary-light;
+            color: $color-white;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            margin: 1rem 0;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        &--link,
+        &--link:active {
+            color: $color-white;
+            background-color: $color-primary-dark;
+            text-decoration: none;
+            padding: .5rem 1rem;
+            border-radius: 2px;
+            transition: all .3s;
+
+            &:hover {
+                background-color: $color-grey-light;
+                color: $color-primary-dark;
+            }
+        }
+    }
+}
