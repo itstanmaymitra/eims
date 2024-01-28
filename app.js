@@ -19,6 +19,7 @@ const Admin = require("./models/admin");
 // Environment Variables
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 // initialize app
@@ -98,15 +99,15 @@ mongoose
 	.then(async (result) => {
 		try {
 			const admin = await Admin.findOne({
-				email: "tanmaymitra2710@gmail.com",
+				email: ADMIN_EMAIL,
 			});
 
 			if (!admin) {
 				const hashedPassword = await bcrypt.hash(ADMIN_PASSWORD, 12);
 
 				const newAdmin = new Admin({
-					username: "itsTanmayMitra",
-					email: "tanmaymitra2710@gmail.com",
+					username: "admin",
+					email: ADMIN_EMAIL,
 					password: hashedPassword,
 				});
 
